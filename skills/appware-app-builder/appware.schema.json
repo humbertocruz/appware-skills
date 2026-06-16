@@ -158,13 +158,70 @@
           "type": "string"
         },
         "resourceRef": {
-          "type": "string"
+          "type": "string",
+          "description": "IOEffect: id de um Resource."
         },
         "targetRef": {
-          "type": "string"
+          "type": "string",
+          "description": "TransitionEffect: id do Context alvo."
         },
         "params": {
           "type": "object"
+        },
+        "when": {
+          "$ref": "#/$defs/FlowCondition",
+          "description": "Condition: condição avaliada."
+        },
+        "then": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Effect"
+          },
+          "description": "Condition: ramo verdadeiro."
+        },
+        "else": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Effect"
+          },
+          "description": "Condition: ramo falso."
+        },
+        "as": {
+          "type": "string",
+          "description": "IOEffect: nomeia o resultado para uso posterior."
+        },
+        "state": {
+          "type": "string",
+          "description": "StateEffect: qual State definir."
+        },
+        "fromResult": {
+          "type": "string",
+          "description": "StateEffect: resultado-fonte (um IOEffect.as)."
+        },
+        "resultPath": {
+          "type": "string",
+          "description": "StateEffect: caminho dentro do resultado (ex.: \"ok\")."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "StateEffect: inverte o valor derivado."
+        }
+      },
+      "additionalProperties": false
+    },
+    "FlowCondition": {
+      "type": "object",
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Nome de um State referenciado."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "Inverte a condição (if not)."
         }
       },
       "additionalProperties": false
