@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://appware.dev/schemas/project.appware.json",
+  "title": "Appware Project",
+  "type": "object",
+  "required": [
+    "appware",
+    "project",
+    "nodes"
+  ],
+  "properties": {
+    "appware": {
+      "type": "string",
+      "description": "Versão do formato."
+    },
+    "project": {
+      "type": "string"
+    },
+    "kits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Resource"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Relation"
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Node"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Node": {
+      "type": "object",
+      "required": [
+        "id",
+        "coreType"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "coreType": {
+          "enum": [
+            "Context",
+            "Element",
+            "Container",
+            "ValueCollector",
+            "IntentTrigger",
+            "Event",
+            "Effect",
+            "State",
+            "Constraint",
+            "Resource",
+            "Relation",
+            "Flow"
+          ]
+        },
+        "kitType": {
+          "enum": [
+            "app.Screen",
+            "app.Page",
+            "app.Form",
+            "app.Input",
+            "app.Button"
+          ],
+          "description": "Tipo de domínio do App Kit (opcional)."
+        },
+        "name": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Node"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Event"
+          }
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Event": {
+      "type": "object",
+      "required": [
+        "name",
+        "flow"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "flow": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Effect"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Effect": {
+      "type": "object",
+      "required": [
+        "kind",
+        "name"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "TransitionEffect",
+            "FeedbackEffect",
+            "IOEffect",
+            "GenericEffect",
+            "Condition",
+            "StateEffect"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "resourceRef": {
+          "type": "string"
+        },
+        "targetRef": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Resource": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Relation": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "fromId",
+        "toId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "fromId": {
+          "type": "string"
+        },
+        "toId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "x-appware-hints": {
+    "appKitTypes": [
+      "app.Screen",
+      "app.Page",
+      "app.Form",
+      "app.Input",
+      "app.Button",
+      "app.Link",
+      "app.Modal",
+      "app.Alert",
+      "app.ApiCall",
+      "app.Storage"
+    ],
+    "inputTypes": [
+      "text",
+      "email",
+      "password",
+      "number",
+      "tel",
+      "url",
+      "date"
+    ]
+  }
+}

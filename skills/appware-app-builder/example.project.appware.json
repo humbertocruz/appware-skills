@@ -1,0 +1,26 @@
+{
+  "appware": "0.1",
+  "project": "exemplo",
+  "kits": ["app"],
+  "targets": ["nextjs"],
+  "nodes": [
+    {
+      "id": "tela_home",
+      "coreType": "Context",
+      "kitType": "app.Screen",
+      "name": "Home",
+      "children": [
+        {
+          "id": "form",
+          "coreType": "Container",
+          "kitType": "app.Form",
+          "name": "Contato",
+          "children": [
+            { "id": "nome", "coreType": "ValueCollector", "kitType": "app.Input", "props": { "type": "text", "required": true } },
+            { "id": "enviar", "coreType": "IntentTrigger", "kitType": "app.Button", "name": "Enviar" }
+          ]
+        }
+      ]
+    }
+  ]
+}
